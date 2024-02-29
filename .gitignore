@@ -42,4 +42,5 @@ SpringProjectApplication/.project
 SpringProjectApplication/.classpath
 SpringProjectApplication/.factorypath
 SpringProjectApplication/Project.iml
+SpringProjectApplication/target
 SpringProjectApplication/.gitignore
