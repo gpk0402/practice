@@ -1,13 +1,12 @@
-package epam.service;
+package com.epam.service;
 
-import com.epam.dto.AssociateDto;
-import com.epam.dto.BatchDto;
-import com.epam.entity.Associate;
-import com.epam.entity.Batch;
-import com.epam.exception.AssociateException;
-import com.epam.repository.AssociateRepository;
-import com.epam.repository.BatchRepository;
-import com.epam.service.AssociateServiceImpl;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +16,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.epam.dto.AssociateDto;
+import com.epam.dto.BatchDto;
+import com.epam.entity.Associate;
+import com.epam.entity.Batch;
+import com.epam.exception.AssociateException;
+import com.epam.repository.AssociateRepository;
+import com.epam.repository.BatchRepository;
 
 @ExtendWith(MockitoExtension.class)
 class AssociateServiceImplTest {
@@ -33,7 +33,7 @@ class AssociateServiceImplTest {
 	@Mock
 	ModelMapper modelMapper;
 	@InjectMocks
-    AssociateServiceImpl associateServiceImpl;
+	AssociateServiceImpl associateServiceImpl;
 
 	Associate associate;
 	AssociateDto associateDto;
@@ -73,6 +73,12 @@ class AssociateServiceImplTest {
 		associateDto.setId(1);
 		associateDto.setName("test");
 		associateDto.setStatus("Active");
+
+//		batch = Batch.builder().name("test").endDate(null).startDate(null).practice("test practice").id(1).build();
+//		associate = Associate.builder().name("test").email("test@epam.com").college("test").gender("Male")
+//				.status("Active").batch(batch).id(1).build();
+//		associateDto = modelMapper.map(associate, AssociateDto.class);
+//		batchDto = modelMapper.map(batch, BatchDto.class);
 	}
 
 	@Test

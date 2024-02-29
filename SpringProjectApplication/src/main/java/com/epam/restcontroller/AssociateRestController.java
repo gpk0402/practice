@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("associates")
 @Slf4j
 @AllArgsConstructor
+@NoArgsConstructor
 public class AssociateRestController {
 	@Autowired
 	AssociateService associateService;

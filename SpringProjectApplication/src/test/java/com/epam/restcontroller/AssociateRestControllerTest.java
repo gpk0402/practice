@@ -1,4 +1,4 @@
-package epam.restcontroller;
+package com.epam.restcontroller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,35 +11,28 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.epam.dto.AssociateDto;
 import com.epam.dto.BatchDto;
+import com.epam.entity.Associate;
 import com.epam.entity.Batch;
-import com.epam.restcontroller.AssociateRestController;
 import com.epam.service.AssociateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(AssociateRestControllerTest.class)
-class AssociateRestControllerTest {
+@WebMvcTest(AssociateRestController.class)
+public class AssociateRestControllerTest {
 	@MockBean
 	AssociateService associateService;
 
 	@Autowired
 	MockMvc mockMvc;
-
-	@InjectMocks
-	AssociateRestController associateRestController;
 
 	AssociateDto associateDto;
 	BatchDto batchDto;
@@ -47,7 +40,6 @@ class AssociateRestControllerTest {
 
 	@BeforeEach
 	void setup() {
-		MockitoAnnotations.openMocks(this);
 		batch = new Batch();
 		batch.setId(1);
 		batch.setName("test");
@@ -73,7 +65,14 @@ class AssociateRestControllerTest {
 
 	}
 
-		
+	@Test
+	void testCreateAsscociate() throws JsonProcessingException, Exception {
+		Mockito.when(associateService.createAssociate(associateDto)).thenReturn(associateDto);
+		mockMvc.perform(post("/associates").contentType(MediaType.APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(associateDto))).andExpect(status().isCreated()).andReturn();
+	}
+	
+	
 	@Test
 	void testCreateAsscociateThrowsHttpMessageNotReadable() throws JsonProcessingException, Exception {
 		Mockito.when(associateService.createAssociate(associateDto)).thenReturn(associateDto);
@@ -97,5 +96,9 @@ class AssociateRestControllerTest {
 		Mockito.when(associateService.getAllAssociatesByGender("Male")).thenReturn(List.of(associateDto));
 		mockMvc.perform(get("/associates/{gender}","Male")).andExpect(status().isOk()).andReturn();
 	}
+	
+	
+	
+	
 
 }
